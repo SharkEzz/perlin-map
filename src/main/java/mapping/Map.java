@@ -5,10 +5,7 @@ import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableIntegerArray;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelBuffer;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
@@ -16,6 +13,7 @@ import javafx.scene.shape.*;
 import perlin.PerlinNoise;
 
 import javax.imageio.ImageIO;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -156,10 +154,19 @@ public class Map {
 
 //        mesh.getTexCoords().addAll(0, 0);
 //        textures.addAll();
+
         mesh.getPoints().addAll(points);
         mesh.getTexCoords().addAll(textures);
         mesh.getFaces().addAll(faces);
         System.out.println("last texture x:" + textures.get(textures.size() - 2) + ",y:" + textures.get(textures.size()-1));
+        PixelReader p = this.image.getPixelReader();
+        for(int i = 0; i < this.dimention*this.dimention -2; i+=2)
+        {
+             int x=Math.round(textures.get(i)*this.dimention),
+                y=Math.round(textures.get(i+1)*this.dimention);
+             Color c = p.getColor(x, y);
+            System.out.println(c.getRed() +","+ c.getGreen() +","+ c.getBlue());
+        }
         return mesh;
     }
 
@@ -170,6 +177,7 @@ public class Map {
     public MeshView meshView(){
 
         MeshView t = new MeshView(this.meshObject);
+        t.setDrawMode(DrawMode.LINE); //
         PhongMaterial m = new PhongMaterial();
         m.setDiffuseMap(this.image);
         t.setMaterial(m);
