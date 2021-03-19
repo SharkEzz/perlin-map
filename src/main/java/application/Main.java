@@ -24,17 +24,17 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         SimpleFPSCamera camera = new SimpleFPSCamera();
 
-        MeshView mort = new Map(20, 50, 500, 0.009f).meshView();
-        mort.setRotate(180);
+        Group map = new Map(20, 50, 300, 0.009f, 0.35f).view();
+        map.setRotate(180);
 
-        Group group = new Group(mort, camera);
+        Group group = new Group(map, camera);
 
         Scene scene = new Scene(group, 1000, 1000, true, SceneAntialiasing.BALANCED);
         camera.loadControlsForScene(scene);
         scene.setCamera(camera.getCamera());
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("fuk la 3d");
+        primaryStage.setTitle("Map Generator");
         primaryStage.show();
     }
 
