@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+group 'org.didou'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://mvnrepository.com/artifact"
+    }
+    maven {
+        url "http://maven.jzy3d.org/releases"
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'org.fxyz3d:fxyz3d:0.5.2'
+    implementation 'org.fxyz3d:fxyz3d-importers:0.5.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+javafx {
+    version = "16"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing' ]
+}
+
+sourceSets {
+    main.output.resourcesDir = main.java.outputDir
+}
